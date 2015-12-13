@@ -163,7 +163,7 @@ std::vector<size_t> build_lcp_array(const std::vector<size_t> &string, const std
         suffix_array_pos[suffix_array[i]] = i;
     }
 
-    std::vector<size_t> LCP(size - 1);
+    std::vector<size_t> lcp(size - 1);
     for (size_t i = 0, result = 0; i < size; ++i) {
         size_t pos = suffix_array_pos[i];
 
@@ -178,8 +178,8 @@ std::vector<size_t> build_lcp_array(const std::vector<size_t> &string, const std
         for (; i + result < size && suffix_array[pos + 1] + result < size
                && string[i + result] == string[suffix_array[pos + 1] + result]; ++result) { }
 
-        LCP[pos] = result;
+        lcp[pos] = result;
     }
 
-    return LCP;
+    return lcp;
 }
