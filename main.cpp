@@ -16,8 +16,8 @@ int main() {
         vec_str.push_back(static_cast<size_t>(c - 'a' + 1));
     }
 
-    std::vector<size_t> answ;
-    answ.reserve(str.size());
+    std::vector<size_t> answer;
+    answer.reserve(str.size());
 
     for (size_t i = 0; i < str.size(); ++i) {
         std::vector<size_t> current(vec_str.begin() + i, vec_str.begin() + std::min(i + key, str.size()));
@@ -25,18 +25,18 @@ int main() {
             current.insert(current.end(), vec_str.begin(), vec_str.begin() + (i + key - str.size()));
         }
 
-        auto SA = build_suffix_array(current, 26);
-        auto LCP = build_lcp_array(current, SA);
+        auto sa = build_suffix_array(current, 26);
+        auto lcp = build_lcp_array(current, sa);
         size_t result = 0;
         for (size_t j = 0; j + 1 < current.size(); ++j) {
-            result += current.size() - SA[j] - LCP[j];
+            result += current.size() - sa[j] - lcp[j];
         }
-        result += current.size() - SA.back();
+        result += current.size() - sa.back();
 
-        answ.push_back(result);
+        answer.push_back(result);
     }
 
-    for (size_t i : answ) {
+    for (size_t i : answer) {
         std::cout << i << ' ';
     }
 
